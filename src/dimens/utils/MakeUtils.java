@@ -16,11 +16,12 @@ public class MakeUtils {
     private static final String XML_HEADER = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n";
     private static final String XML_RESOURCE_START = "<resources>\r\n";
     private static final String XML_RESOURCE_END = "</resources>\r\n";
-    private static final String XML_DIMEN_TEMPLETE = "<dimen name=\"qb_%1$spx_%2$d\">%3$.2fdp</dimen>\r\n";
+    private static final String XML_DIMEN_TEMPLETE_SP = "<dimen name=\"qb_%1$spx_%2$d\">%3$.2fsp</dimen>\r\n";
+    private static final String XML_DIMEN_TEMPLETE_DP = "<dimen name=\"qb_%1$spx_%2$d\">%3$.2fdp</dimen>\r\n";
 
-   
+
     private static final String XML_BASE_DPI = "<dimen name=\"base_dpi\">%ddp</dimen>\r\n";
-    private  static final int MAX_SIZE = 720;
+    private  static final int MAX_SIZE = 400;
 
     /**
      * 生成的文件名
@@ -52,10 +53,18 @@ public class MakeUtils {
             //备份生成的相关信息
             temp = String.format(XML_BASE_DPI, type.getSwWidthDp());
             sb.append(temp);
-            for (int i = 0; i <= MAX_SIZE; i++) {
-            	
+            for (int i = 0; i <= MAX_SIZE; i+=2) {
+
                 dpValue = px2dip((float) i,type.getSwWidthDp(),designWidth);
-                temp = String.format(XML_DIMEN_TEMPLETE,"", i, dpValue);
+                temp = String.format(XML_DIMEN_TEMPLETE_DP,"", i, dpValue);
+                sb.append(temp);
+            }
+            sb.append("\n");
+
+            for (int i = 10; i <= 50; i+=2) {
+
+                dpValue = px2dip((float) i,type.getSwWidthDp(),designWidth);
+                temp = String.format(XML_DIMEN_TEMPLETE_SP,"", i, dpValue);
                 sb.append(temp);
             }
 
